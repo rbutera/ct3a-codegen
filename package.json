@@ -22,6 +22,9 @@
     "trpc",
     "react"
   ],
+  "bin": {
+    "ct3a-codegen": "./dist/index.js"
+  },
   "author": "Rai Butera <rai@rbutera.com>",
   "license": "Apache-2.0",
   "dependencies": {

@@ -27,7 +27,7 @@ export function envGenerator(plop) {
         {
           type: "append",
           path: ".env",
-          template: "{{name}}={{value}}",
+          template: "{{name}}='{{value}}'",
           data: { name, value },
         },
         async (answers) => {
@@ -35,15 +35,15 @@ export function envGenerator(plop) {
           let envContent = await fs.readFile(envPath, "utf-8");
 
           const schemaType = isPublic ? "client" : "server";
-          const schemaLine = `    ${name}: z.string(),`;
+          const schemaLine = `      ${name}: z.string(),`;
           const schemaRegex = new RegExp(`(${schemaType}:\\s*{[^}]*)`);
-          envContent = envContent.replace(schemaRegex, `$1\n${schemaLine}`);
+          envContent = envContent.replace(schemaRegex, `$1${schemaLine}\n`);
 
-          const runtimeEnvLine = `  ${name}: process.env.${name},`;
+          const runtimeEnvLine = `    ${name}: process.env.${name},`;
           const runtimeEnvRegex = /(runtimeEnv:\s*{[^}]*)/;
           envContent = envContent.replace(
             runtimeEnvRegex,
-            `$1\n${runtimeEnvLine}`
+            `$1${runtimeEnvLine}\n`
           );
 
           await fs.writeFile(envPath, envContent);
