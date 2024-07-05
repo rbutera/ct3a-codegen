@@ -1,0 +1,39 @@
+{
+  "name": "ct3a-codegen",
+  "version": "0.0.1",
+  "description": "Code generation tool for NextJS / create-t3-app projects powered by Plop",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "postbuild": "cp -R templates dist/",
+    "create": "node dist/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "keywords": [
+    "plop",
+    "codegen",
+    "nextjs",
+    "create-t3-app",
+    "t3",
+    "trpc",
+    "react"
+  ],
+  "author": "Rai Butera <rai@rbutera.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "find-up": "^7.0.0",
+    "fs-extra": "^11.2.0",
+    "plop": "^4.0.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "rollup": "^4.18.0",
+    "rollup-plugin-terser": "^7.0.2"
+  }
+}
