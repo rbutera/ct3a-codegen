@@ -4,7 +4,7 @@
   "description": "Code generation tool for NextJS / create-t3-app projects powered by Plop",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rspack build",
     "postbuild": "cp -R templates dist/",
     "create": "node dist/index.js",
     "prepublishOnly": "npm run build"
