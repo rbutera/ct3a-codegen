@@ -27,6 +27,9 @@ importers:
       '@rollup/plugin-json':
         specifier: ^6.1.0
         version: 6.1.0(rollup@4.18.0)
+      '@rollup/plugin-multi-entry':
+        specifier: ^6.0.1
+        version: 6.0.1(rollup@4.18.0)
       '@rollup/plugin-node-resolve':
         specifier: ^15.2.3
         version: 15.2.3(rollup@4.18.0)
@@ -102,6 +105,15 @@ packages:
       rollup:
         optional: true
 
+  '@rollup/plugin-multi-entry@6.0.1':
+    resolution: {integrity: sha512-AXm6toPyTSfbYZWghQGbom1Uh7dHXlrGa+HoiYNhQtDUE3Q7LqoUYdVQx9E1579QWS1uOiu+cZRSE4okO7ySgw==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+
   '@rollup/plugin-node-resolve@15.2.3':
     resolution: {integrity: sha512-j/lym8nf5E21LwBT4Df1VD6hRO2L2iwUeUmP7litikRsVp1H6NWx20NEp0Y7su+7XGc476GnXXc4kFeZNGmaSQ==}
     engines: {node: '>=14.0.0'}
@@ -122,6 +134,15 @@ packages:
       rollup:
         optional: true
       tslib:
+        optional: true
+
+  '@rollup/plugin-virtual@3.0.2':
+    resolution: {integrity: sha512-10monEYsBp3scM4/ND4LNH5Rxvh3e/cVeL3jWTgZ2SrQ+BmUoQcopVQvnaMcOnykb1VkxUFuDAN+0FnpTFRy2A==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
         optional: true
 
   '@rollup/pluginutils@5.1.0':
@@ -693,6 +714,10 @@ packages:
     resolution: {integrity: sha512-8y/eV9QQZCiyn1SprXSrCmqJN0yNRATe+PO8ztwqrvrbdRLA3eYJF0yaR0YayLWkMbsQSKWS9N2gPcGEc4UsZg==}
     engines: {node: '>=0.10.0'}
 
+  matched@5.0.1:
+    resolution: {integrity: sha512-E1fhSTPRyhAlNaNvGXAgZQlq1hL0bgYMTk/6bktVlIhzUnX/SZs7296ACdVeNJE8xFNGSuvd9IpI7vSnmcqLvw==}
+    engines: {node: '>=10'}
+
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
@@ -1103,6 +1128,13 @@ snapshots:
     optionalDependencies:
       rollup: 4.18.0
 
+  '@rollup/plugin-multi-entry@6.0.1(rollup@4.18.0)':
+    dependencies:
+      '@rollup/plugin-virtual': 3.0.2(rollup@4.18.0)
+      matched: 5.0.1
+    optionalDependencies:
+      rollup: 4.18.0
+
   '@rollup/plugin-node-resolve@15.2.3(rollup@4.18.0)':
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.18.0)
@@ -1122,6 +1154,10 @@ snapshots:
     optionalDependencies:
       rollup: 4.18.0
       tslib: 2.6.3
+
+  '@rollup/plugin-virtual@3.0.2(rollup@4.18.0)':
+    optionalDependencies:
+      rollup: 4.18.0
 
   '@rollup/pluginutils@5.1.0(rollup@4.18.0)':
     dependencies:
@@ -1682,6 +1718,11 @@ snapshots:
       kind-of: 6.0.3
 
   map-cache@0.2.2: {}
+
+  matched@5.0.1:
+    dependencies:
+      glob: 7.2.3
+      picomatch: 2.3.1
 
   merge2@1.4.1: {}
 

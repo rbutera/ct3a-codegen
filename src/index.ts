@@ -40,7 +40,7 @@ async function main() {
   Plop.prepare(
     {
       cwd: argv.cwd,
-      configPath: path.join(__dirname, "plopfile.ts"),
+      configPath: path.join(__dirname, "plopfile.js"),
       preload: argv.preload || [],
       completion: argv.completion,
     },
