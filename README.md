@@ -8,7 +8,7 @@ If you find this project useful, please consider giving it a star ⭐️ on GitH
 - [Usage](#usage)
 - [Features](#features)
 - [Generators](#generators)
-- [Configuration using .t3gen.json (Optional) (WIP)](#configuration-using-t3genjson-optional-wip)
+- [Configuration using .t3gen.json (Optional) (WIP)](#configuration)
 - [Contribution](#contribution)
 - [License](#license)
 
@@ -80,18 +80,14 @@ See the list of generators below for more details.
 | procedure | ⏳     | Creates a tRPC procedure in `src/server/api/routers/<router>.ts`      | `t3gen procedure posts/getPost` |
 | store          | ⏳     | Creates a Zustand store in `src/<feature>/store.ts`                                                   | `t3gen store posts`        |
 
-
-## Configuration using .t3gen.json (Optional) (WIP)
-
+## Configuration using .t3gen.json (Optional) {#configuration}
 t3gen should work out of the box, but if you want to customize the behavior of t3gen, you can create a `.t3gen.json` file in the root of your project. This file should be a JSON object with the following properties:
 
-```json
+```jsonc
 {
-  "routersPath": "custom/path/to/routers",
-  "rootPath": "custom/path/to/root-router.ts"
+  "srcPath": "custom/path/to/src" // defaults to "src"
 }
 ```
-
 
 ## Contribution
 
