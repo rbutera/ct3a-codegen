@@ -24,7 +24,7 @@ async function getSrcPath() {
   return path.join(projectRoot, "src");
 }
 
-async function getConfig(projectRoot) {
+async function getConfig(projectRoot: string): Promise<Record<string, any>> {
   const configPath = path.join(projectRoot, ".t3gen.json");
   if (await fs.pathExists(configPath)) {
     return fs.readJson(configPath);

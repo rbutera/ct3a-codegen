@@ -1,7 +1,8 @@
 import fs from "fs/promises";
 import path from "path";
+import { NodePlopAPI } from "plop";
 
-export function routerGenerator(plop) {
+export function routerGenerator(plop: NodePlopAPI): void {
   plop.setGenerator("router", {
     description: "Create a new tRPC router",
     prompts: [
@@ -11,7 +12,8 @@ export function routerGenerator(plop) {
         message: "What is the name of the new router?",
       },
     ],
-    actions: (data) => {
+    // @ts-expect-error plop has a bug where it doesn't type the data object
+    actions: (data: { name: string; projectRoot: string; config: any }) => {
       const { projectRoot, config } = data;
       const srcPath = config.srcPath || "src";
       const routerName = data.name.toLowerCase();

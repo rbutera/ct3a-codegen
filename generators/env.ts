@@ -1,25 +1,39 @@
 import fs from "fs/promises";
+import type { Answers } from "inquirer";
 import path from "path";
+import { NodePlopAPI } from "plop";
 
-function inferType(value) {
-  // Remove quotes if present
-  value = value.replace(/^['"]|['"]$/g, "");
+function inferType(
+  value: string | number
+): "boolean" | "number" | "url" | "string" {
+  if (typeof value === "string") {
+    // Remove quotes if present
+    value = value.replace(/^['"]|['"]$/g, "");
+  }
 
-  if (value.toLowerCase() === "true" || value.toLowerCase() === "false") {
+  if (
+    (typeof value === "string" && value.toLowerCase() === "true") ||
+    (typeof value === "string" && value.toLowerCase() === "false")
+  ) {
     return "boolean";
   } else if (
-    (!isNaN(value) || !isNaN(Number.parseInt(value))) &&
-    value.trim() !== ""
+    (typeof value === "number" && !isNaN(value)) ||
+    (typeof value === "string" &&
+      !isNaN(Number.parseInt(value)) &&
+      value.trim() !== "")
   ) {
     return "number";
-  } else if (value.startsWith("http://") || value.startsWith("https://")) {
+  } else if (
+    (typeof value === "string" && value.startsWith("http://")) ||
+    (typeof value === "string" && value.startsWith("https://"))
+  ) {
     return "url";
   } else {
     return "string";
   }
 }
 
-function getZodSchema(type) {
+function getZodSchema(type: "boolean" | "number" | "url" | "string"): string {
   switch (type) {
     case "boolean":
       return "z.boolean()";
@@ -32,7 +46,7 @@ function getZodSchema(type) {
   }
 }
 
-export function envGenerator(plop) {
+export function envGenerator(plop: NodePlopAPI): void {
   plop.setGenerator("env", {
     description: "Add a new environment variable",
     prompts: [
@@ -47,14 +61,26 @@ export function envGenerator(plop) {
         message:
           "Is this a public variable (WARNING: will be exposed to the client)?",
         default: false,
-        when: (answers) => answers.envVar.startsWith("NEXT_PUBLIC_"),
+        when: (answers: Answers) =>
+          (answers.envVar as string).startsWith("NEXT_PUBLIC_"),
       },
     ],
-    actions: (data) => {
-      const { projectRoot } = data;
-      const [name, value] = data.envVar.split("=");
+    // @ts-expect-error plop has a bug where it doesn't type the data object
+    actions: (data: {
+      envVar: string;
+      isPublic?: boolean;
+      projectRoot: string;
+    }) => {
+      if (!data) return [];
+
+      const { projectRoot, envVar } = data as {
+        projectRoot: string;
+        envVar: string;
+      };
+      const [name, value] = envVar.split("=");
       const isPublic =
-        name.startsWith("NEXT_PUBLIC_") && data.isPublic !== false;
+        name.startsWith("NEXT_PUBLIC_") &&
+        (data as { isPublic?: boolean }).isPublic !== false;
 
       const inferredType = inferType(value);
       const zodSchema = getZodSchema(inferredType);
@@ -66,7 +92,11 @@ export function envGenerator(plop) {
           template: "{{name}}='{{value}}'",
           data: { name, value },
         },
-        async (answers) => {
+        async (answers: {
+          projectRoot: string;
+          envVar: string;
+          isPublic?: boolean;
+        }) => {
           const envPath = path.resolve(projectRoot, "src/env.js");
           let envContent = await fs.readFile(envPath, "utf-8");
 
