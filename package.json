@@ -32,6 +32,7 @@
     "fs-extra": "^11.2.0",
     "plop": "^4.0.1"
   },
+  "url": "https://github.com/rbutera/t3gen",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-json": "^6.1.0",
