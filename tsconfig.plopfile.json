@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
+    "target": "es2023",
+    "module": "nodenext",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
